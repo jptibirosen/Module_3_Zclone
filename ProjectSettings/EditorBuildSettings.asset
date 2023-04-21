@@ -8,4 +8,58 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/test.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/room_5050.unity
+    guid: fee9aae4ca06d324fb8c6155c9d423ff
+  - enabled: 1
+    path: Assets/Scenes/room_5051.unity
+    guid: 99ed0f4c3dc52b74181d8b97f48a1d54
+  - enabled: 1
+    path: Assets/Scenes/room_4951.unity
+    guid: e2ed9b39d679aba4a9bf35844ebb9864
+  - enabled: 1
+    path: Assets/Scenes/room_5151.unity
+    guid: eb4b0d65f3ffbee4b9de68e3eed4066e
+  - enabled: 1
+    path: Assets/Scenes/room_5251.unity
+    guid: f2f1a784668975d4dbe3e6aa9bdd71b8
+  - enabled: 1
+    path: Assets/Scenes/room_4851.unity
+    guid: 61e39313887d71c498ccb285340e2625
+  - enabled: 1
+    path: Assets/Scenes/room_4751.unity
+    guid: 2408b1bbb23c0c9499bc8c4453288441
+  - enabled: 1
+    path: Assets/Scenes/room_5052.unity
+    guid: 96825d85275fa804cbcbe7c547c53e62
+  - enabled: 1
+    path: Assets/Scenes/room_5053.unity
+    guid: 5000ce1fbdd446d4b8aa8afa4d55bd1b
+  - enabled: 1
+    path: Assets/Scenes/room_5054.unity
+    guid: 34b22ac839777b84fa032bcd941aade1
+  - enabled: 1
+    path: Assets/Scenes/room_5055.unity
+    guid: d60656e7e350c76438a79bae8a7adfcc
+  - enabled: 1
+    path: Assets/Scenes/room_5056.unity
+    guid: ec1ad8570dc3fbc4d99d9e84d48f46a7
+  - enabled: 1
+    path: Assets/Scenes/room_5057.unity
+    guid: a56cd5602f58c814aa377983364062dc
+  - enabled: 1
+    path: Assets/Scenes/room_5156.unity
+    guid: 79d266e936f3f7f4e8caf22a8921b722
+  - enabled: 1
+    path: Assets/Scenes/room_5256.unity
+    guid: 8377f6bb6eb73154aa4f084e55af6a44
+  - enabled: 1
+    path: Assets/Scenes/room_5356.unity
+    guid: 31a8f9be10106bd43af69997ad5d466e
+  - enabled: 1
+    path: Assets/Scenes/room_5355.unity
+    guid: 02d2f05bc9c2f584c96a7074a614303b
+  - enabled: 1
+    path: Assets/Scenes/room_4752.unity
+    guid: 07e8350a45db32645b8c89502b16d1f1
   m_configObjects: {}
