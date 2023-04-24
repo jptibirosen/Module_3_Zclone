@@ -9,6 +9,7 @@ public class archer_enemy_attack : MonoBehaviour
     [SerializeField] GameObject player;
     [SerializeField] GameObject arrow;
     [SerializeField] float arrow_speed = 15;
+    [SerializeField] AudioSource arrow_audio;
     float cooldown = 0f;    //used in the reload cycle
 
     void attack(Vector3 direction){
@@ -16,9 +17,11 @@ public class archer_enemy_attack : MonoBehaviour
             cooldown = 1.5f;
             float theta = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             Vector3 arrow_rotation = new Vector3(0f, 0f, theta);
+            arrow_audio.Play();
             GameObject new_arrow = Instantiate(arrow, transform.position, Quaternion.Euler(arrow_rotation));
             Destroy(new_arrow, 3f);
             new_arrow.GetComponent<Rigidbody2D>().velocity = direction * arrow_speed;
+
         }
         cooldown -= Time.deltaTime;
     }

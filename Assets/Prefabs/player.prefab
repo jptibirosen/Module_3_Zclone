@@ -163,10 +163,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 661e6c9f07a68054286a071e05b1dd67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sword: {fileID: 6674341089501977219, guid: 0dacc8bfeced2f5458a9e973f69e5e81, type: 3}
+  sword: {fileID: 9110300456368780760, guid: 796d76e7c9bea4141bdc1e8fb5187989, type: 3}
   animator: {fileID: 4991880065592786975}
-  weapon_delay: 0.15
-  weapon_speed: 30
+  weapon_lifetime: 0.18
+  weapon_speed: 12
 --- !u!114 &-8937506622959488632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,6 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66d35a3daa3075947bfbcabd020ee05e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player_health: 0
 --- !u!95 &4991880065592786975
 Animator:
   serializedVersion: 5

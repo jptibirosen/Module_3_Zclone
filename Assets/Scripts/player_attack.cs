@@ -7,8 +7,8 @@ public class player_attack : MonoBehaviour
 
     [SerializeField] GameObject sword;
     [SerializeField] Animator animator;
-    [SerializeField] float weapon_delay = 0.15f;
-    [SerializeField] float weapon_speed = 30f;
+    [SerializeField] float weapon_lifetime = 0.18f;
+    [SerializeField] float weapon_speed = 15f;
 
     bool weapon_ready = true;
     float weapon_busy = 0.6f; //this is the weapon cooldown time
@@ -27,33 +27,39 @@ public class player_attack : MonoBehaviour
 
     void attack_sword(string direction){
         Vector3 sword_velocity = new Vector3(0, 0, 0);
+        Vector3 sword_orientation = new Vector3(0, 0, 0);
 
         if (direction == "left" && weapon_ready) {
-            sword_velocity = new Vector3(-20, 0, 0);
+            sword_velocity = new Vector3(-weapon_speed, 0, 0);
+            sword_orientation = new Vector3(0, 0, 90);
             animator.SetBool("attacking_left", true);
             Invoke("stop_attacking", 0.06f);
         }
         if (direction == "right" && weapon_ready) {
-            sword_velocity = new Vector3(20, 0, 0);
+            sword_velocity = new Vector3(weapon_speed, 0, 0);
+            sword_orientation = new Vector3(0, 0, 270);
             animator.SetBool("attacking_right", true);
             Invoke("stop_attacking", 0.06f);
         }
         if (direction == "up" && weapon_ready) {
-            sword_velocity = new Vector3(0, 20, 0);
+            sword_velocity = new Vector3(0, weapon_speed, 0);
             animator.SetBool("attacking_up", true);
             Invoke("stop_attacking", 0.06f);
         }
         if (direction == "down" && weapon_ready) {
-            sword_velocity = new Vector3(0, -20, 0);
+            sword_velocity = new Vector3(0, -weapon_speed, 0);
+            sword_orientation = new Vector3(0, 0, 180);
             animator.SetBool("attacking_down", true);
             Invoke("stop_attacking", 0.06f);
         }
             
         if (weapon_ready){
             GameObject new_sword = Instantiate<GameObject>(
-                sword, transform.position, Quaternion.Euler(0f, 0f, 0f));
+                sword, 
+                transform.position, 
+                Quaternion.Euler(sword_orientation));
             new_sword.GetComponent<Rigidbody2D>().velocity = sword_velocity;
-            Destroy(new_sword, weapon_delay);  
+            Destroy(new_sword, weapon_lifetime);  
             weapon_ready = false;
             Invoke("set_weapon_ready", weapon_busy); 
             
