@@ -13,7 +13,14 @@ public class sword_enemy_attack : MonoBehaviour
     
 
     
-    //enum Enemy_state {Idle, Moving, Attacking};
+    enum Enemy_state {Idle, Moving, Attacking};
+    Enemy_state this_enemy = Enemy_state.Idle;
+
+    void set_to_idle(){
+        this_enemy = Enemy_state.Idle;
+    }
+    
+    
 
     void attack(){  //spawns a projectile moving in the direction of the player
         Vector3 distance_vector = player.transform.position - transform.position;
@@ -32,11 +39,16 @@ public class sword_enemy_attack : MonoBehaviour
     void full_attack(){
         if (cooldown < 0){
             cooldown = 2.0f;
+
+            //the enemy stops
+            this_enemy = Enemy_state.Attacking;
+            GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);
+
             //there is a 0.5 second wind-up with audio cue
-            GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);    //the enemy stops
             windup_audio.Play();
             //play animation
             Invoke("attack", 0.5f);
+            Invoke("set_to_idle", 2.0f);
             
         }
         cooldown -= Time.deltaTime;
@@ -44,14 +56,15 @@ public class sword_enemy_attack : MonoBehaviour
         
     }
 
-    /*void move_toward_player(Vector3 direction){
+    void move_toward_player(Vector3 direction){
         Rigidbody2D rigid_2D = GetComponent<Rigidbody2D>();
 
-        if (this_enemy == Enemy_state.Idle){
+        if (this_enemy == Enemy_state.Idle || this_enemy == Enemy_state.Moving){
+            this_enemy = Enemy_state.Moving;
             rigid_2D.velocity = direction * 150 * Time.deltaTime;
         }
         
-    }*/
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -72,7 +85,7 @@ public class sword_enemy_attack : MonoBehaviour
         Vector3 direction = distance_vector.normalized;
         float distance = distance_vector.magnitude;
         
-        //if (distance < 6) { move_toward_player(direction); }
+        if (2.5 <= distance && distance < 6) { move_toward_player(direction); }
         if (distance < 2.5) { full_attack(); }
     }
 }

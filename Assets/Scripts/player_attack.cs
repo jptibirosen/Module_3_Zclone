@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class player_attack : MonoBehaviour
 {
 
@@ -9,6 +10,7 @@ public class player_attack : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] float weapon_lifetime = 0.18f;
     [SerializeField] float weapon_speed = 15f;
+    [SerializeField] AudioSource sword_attack_audio;
 
     bool weapon_ready = true;
     float weapon_busy = 0.6f; //this is the weapon cooldown time
@@ -54,6 +56,7 @@ public class player_attack : MonoBehaviour
         }
             
         if (weapon_ready){
+            sword_attack_audio.Play();
             GameObject new_sword = Instantiate<GameObject>(
                 sword, 
                 transform.position, 
