@@ -31,6 +31,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] public bool opened_gold_door = false;
     [SerializeField] public bool has_acorns = false;
     [SerializeField] public bool knows_the_secret = false;
+    [SerializeField] GameObject purple_key_message;
+    [SerializeField] GameObject green_key_message;
+    [SerializeField] GameObject gold_key_message;
+    [SerializeField] GameObject acorns_message;
+    [SerializeField] public AudioSource secret_audio;
+
 
     /*this dictionary tracks the state of the rooms. this makes sure enemies and powerups are only spawned the first time 
     the room is loaded*/
@@ -92,12 +98,45 @@ public class GameManager : MonoBehaviour
             Debug.Log($"has acorns: {has_acorns}");
             Debug.Log($"knows the secret: {knows_the_secret}");
         }
+
+        if(Input.GetKeyDown(KeyCode.D)){
+            GameObject[] array_of_enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            for (int i = array_of_enemies.Length - 1; i >= 0; i--)
+            {
+                Destroy(array_of_enemies[i]);
+            }
+        }
     }
 
     void player_update(){
         GameObject the_player = get_player();
         player_x = the_player.transform.position.x;
         player_y = the_player.transform.position.y;
+    }
+
+    /*public void display_message(string name){
+
+        Dictionary<string, GameObject> messages = new Dictionary<string, GameObject>{
+            {"purple_key", purple_key_message},
+            {"green_key", green_key_message},
+            {"gold_key", gold_key_message},
+            {"acorns", acorns_message}
+        };
+        Instantiate<GameObject>(messages[name]);
+    }*/
+
+    void inventory_display_update(){
+        GameObject purple_message = GameObject.Find("purple_key_message(Clone)");
+        if(has_purple_key && purple_message == null){Instantiate<GameObject>(purple_key_message);;}
+
+        GameObject green_message = GameObject.Find("green_key_message(Clone)");
+        if(has_green_key && green_message == null){Instantiate<GameObject>(green_key_message);;}
+
+        GameObject gold_message = GameObject.Find("gold_key_message(Clone)");
+        if(has_gold_key && gold_message == null){Instantiate<GameObject>(gold_key_message);;}
+
+        GameObject aco_message = GameObject.Find("acorn_message(Clone)");
+        if(has_acorns && aco_message == null){Instantiate<GameObject>(acorns_message);;}
     }
 
     void check_for_exit(){
@@ -179,8 +218,10 @@ public class GameManager : MonoBehaviour
     void Update()
     {   
         ask_status();
+        inventory_display_update();
         player_update();    //should this be in fixedupdates instead?
         check_for_exit();
         check_for_completion();
+        
     }
 }

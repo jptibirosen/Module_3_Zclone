@@ -5,12 +5,15 @@ using UnityEngine;
 public class blue_chest_script : MonoBehaviour
 {
     [SerializeField] GameObject open_chest_object;
+    [SerializeField] GameObject empty_message;
     [SerializeField] AudioSource open_audio;
 
     private void open_chest(){
         open_audio.Play();
         Debug.Log("this chest is empty"); //give key
         Instantiate<GameObject>(open_chest_object, transform.position, transform.rotation);
+        GameObject new_message = Instantiate<GameObject>(empty_message);
+        Destroy(new_message, 4f);
         Destroy(gameObject);
     }
 

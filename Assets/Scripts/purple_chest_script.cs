@@ -9,8 +9,9 @@ public class purple_chest_script : MonoBehaviour
 
     private void open_chest(){
         open_audio.Play();
-        Debug.Log("got purple key");
+        //Debug.Log("got purple key");
         GameManager.Instance.has_purple_key = true;
+        GameManager.Instance.secret_audio.Play();
         Instantiate<GameObject>(open_chest_object, transform.position, transform.rotation);
         Destroy(gameObject);
     }

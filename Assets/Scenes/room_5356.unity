@@ -199,6 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   open_chest_object: {fileID: 6957580211811109771, guid: 5082acc605bd5e344bdd36a55b0377b4, type: 3}
+  empty_message: {fileID: 3865177905295148596, guid: 6b5eeb1851bae0e4486f04fd2b04bea9, type: 3}
   open_audio: {fileID: 439829399}
 --- !u!82 &439829399 stripped
 AudioSource:
@@ -281,6 +282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   open_chest_object: {fileID: 6957580211811109771, guid: 5082acc605bd5e344bdd36a55b0377b4, type: 3}
+  empty_message: {fileID: 3865177905295148596, guid: 6b5eeb1851bae0e4486f04fd2b04bea9, type: 3}
   open_audio: {fileID: 478244042}
 --- !u!82 &478244042 stripped
 AudioSource:

@@ -9,7 +9,7 @@ public class oak_script : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other) {
         if (has_acorns && other.gameObject.tag == "Projectile"){
-            Debug.Log("spawn acorn");
+            Instantiate<GameObject>(acorn, new Vector3(0.5f, 1.5f, 0f), transform.rotation);
             has_acorns = false;
         }
     }
