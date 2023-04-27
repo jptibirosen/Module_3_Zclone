@@ -5,12 +5,20 @@ using UnityEngine.UIElements;
 
 public class archer_enemy_attack : MonoBehaviour
 {
-
+    [SerializeField] int enemy_health = 1;
     [SerializeField] GameObject player;
     [SerializeField] GameObject arrow;
     [SerializeField] float arrow_speed = 15;
     [SerializeField] AudioSource arrow_audio;
+    [SerializeField] AudioSource death_audio;
     float cooldown = 0f;    //used in the reload cycle
+
+
+    void OnCollisionEnter2D(Collision2D col) {
+        if (col.gameObject.tag == "Projectile"){
+            enemy_health--;
+        }
+    }
 
     void attack(Vector3 direction){
         if (cooldown < 0){
@@ -28,21 +36,37 @@ public class archer_enemy_attack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectsWithTag("Player")[0];
+        if (player == null && GameObject.FindGameObjectsWithTag("Player").Length != 0){
+            player = GameObject.FindGameObjectsWithTag("Player")[0];
+        }
+        
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update(){
+
+        if (player == null && GameObject.FindGameObjectsWithTag("Player").Length != 0){
+            player = GameObject.FindGameObjectsWithTag("Player")[0];
+        }
         
+
+        if (enemy_health <= 0){
+            death_audio.Play();
+            Destroy(gameObject);
+        }
     }
 
-    void FixedUpdate() {        
-        Vector3 distance_vector = player.transform.position - transform.position;
-        Vector3 direction = distance_vector.normalized;
-        float distance = distance_vector.magnitude;
+    void FixedUpdate() {
+
+        if (player != null){
+            Vector3 distance_vector = player.transform.position - transform.position;
+            Vector3 direction = distance_vector.normalized;
+            float distance = distance_vector.magnitude;
         
-        if (distance < 10) {attack(direction);}
+            if (distance < 10) {attack(direction);}
+        }
+
+        
     
     }
 }

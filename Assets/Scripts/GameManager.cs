@@ -20,16 +20,39 @@ public class GameManager : MonoBehaviour
     int room_y = 50;
 
     //the player's current coordinates
-    [SerializeField] float player_x;
-    [SerializeField] float player_y;
+    [SerializeField] float player_x = 0f;
+    [SerializeField] float player_y = -6f;
+
+    [SerializeField] public bool has_purple_key = false;
+    [SerializeField] public bool has_green_key = false;
+    [SerializeField] public bool has_gold_key = false;
+    [SerializeField] public bool opened_purple_door = false;
+    [SerializeField] public bool opened_green_door = false;
+    [SerializeField] public bool opened_gold_door = false;
+    [SerializeField] public bool has_acorns = false;
+    [SerializeField] public bool knows_the_secret = false;
 
     /*this dictionary tracks the state of the rooms. this makes sure enemies and powerups are only spawned the first time 
     the room is loaded*/
     public Dictionary<string, bool> room_status = new Dictionary<string, bool>{
         {"room_5050", false},
         {"room_5051", false},
+        {"room_5151", false},
+        {"room_5251", false},
         {"room_4951", false},
-        {"room_5151", false}
+        {"room_4851", false},
+        {"room_4751", false},
+        {"room_5052", false},
+        {"room_5053", false},
+        {"room_5054", false},
+        {"room_5055", false},
+        {"room_5056", false},
+        {"room_5057", false},
+        {"room_5156", false},
+        {"room_5256", false},
+        {"room_5356", false},
+        {"room_5355", false},
+        {"room_4752", false}  
     };
 
     
@@ -55,6 +78,19 @@ public class GameManager : MonoBehaviour
         }
         else{
             return array_of_players[0];
+        }
+    }
+
+    private void ask_status(){
+        if (Input.GetKeyDown(KeyCode.O)){
+            Debug.Log($"has purple key: {has_purple_key}");
+            Debug.Log($"has green key: {has_green_key}");
+            Debug.Log($"has gold key: {has_gold_key}");
+            Debug.Log($"opened purple door: {opened_purple_door}");
+            Debug.Log($"opened green door: {opened_green_door}");
+            Debug.Log($"opened gold door: {opened_gold_door}");
+            Debug.Log($"has acorns: {has_acorns}");
+            Debug.Log($"knows the secret: {knows_the_secret}");
         }
     }
 
@@ -102,12 +138,31 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void open_door(string color){
+        /* takes a sting argument starting wiht a capital letter (eg. "Purple")
+        removes all doors in the scene tagged with that color*/
+        
+        //Debug.Log($"open_door(\"{color}\") was called");
+        string door_tag = $"{color}_door";
+        GameObject[] array_of_doors = GameObject.FindGameObjectsWithTag(door_tag);
+        List<GameObject> list_of_doors = new List<GameObject>();
+        list_of_doors.AddRange(array_of_doors);
+
+        for (int i = list_of_doors.Count -1 ; i >= 0 ; i--)
+        {
+            Destroy(list_of_doors[i]);
+        }
+
+
+    }
+
 
     void Awake(){
         if (instance == null) {instance = this;}
         else if (instance != this) {Destroy(gameObject);}
 
         DontDestroyOnLoad(gameObject);
+        player_update();
     }
 
 
@@ -122,7 +177,8 @@ public class GameManager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {   
+        ask_status();
         player_update();    //should this be in fixedupdates instead?
         check_for_exit();
         check_for_completion();

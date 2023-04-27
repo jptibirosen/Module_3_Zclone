@@ -6,6 +6,11 @@ TagManager:
   tags:
   - Enemy
   - Projectile
+  - Pickup
+  - Door
+  - Green_door
+  - Purple_door
+  - Gold_door
   layers:
   - Default
   - TransparentFX

@@ -5,19 +5,37 @@ using UnityEngine;
 
 public class sword_enemy_attack : MonoBehaviour
 {
+    [SerializeField] int enemy_health = 2;
     [SerializeField] GameObject player;
     [SerializeField] GameObject enemy_sword;
+    [SerializeField] Animator anim;
     [SerializeField] AudioSource windup_audio;
     [SerializeField] AudioSource sword_attack_audio;
+    [SerializeField] AudioSource hit_audio;
+    [SerializeField] AudioSource death_audio;
     float cooldown = 0f;    //used in the reload cycle
     
 
     
-    enum Enemy_state {Idle, Moving, Attacking};
-    Enemy_state this_enemy = Enemy_state.Idle;
+    enum Enemy_state {Passive, Active};
+    Enemy_state this_enemy = Enemy_state.Active;
 
     void set_to_idle(){
-        this_enemy = Enemy_state.Idle;
+        //this_enemy = Enemy_state.Passive;
+        GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);
+        anim.SetBool("idle", true);
+        anim.SetBool("attacking", false);
+        anim.SetBool("moving_left", false);
+        anim.SetBool("moving_right", false);
+        anim.SetBool("moving_up", false);
+        anim.SetBool("moving_down", false); 
+    }
+
+    void OnCollisionEnter2D(Collision2D col) {
+        if (col.gameObject.tag == "Projectile"){
+            hit_audio.Play();
+            enemy_health--;
+        }
     }
     
     
@@ -37,33 +55,18 @@ public class sword_enemy_attack : MonoBehaviour
     }
 
     void full_attack(){
-        if (cooldown < 0){
-            cooldown = 2.0f;
-
-            //the enemy stops
-            this_enemy = Enemy_state.Attacking;
-            GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);
-
-            //there is a 0.5 second wind-up with audio cue
-            windup_audio.Play();
-            //play animation
-            Invoke("attack", 0.5f);
-            Invoke("set_to_idle", 2.0f);
-            
-        }
-        cooldown -= Time.deltaTime;
-        
-        
+        //the enemy stops
+        GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0); 
+        anim.SetBool("attacking", true);          
+        //there is a 0.5 second wind-up with audio cue
+        windup_audio.Play();
+        Invoke("attack", 0.5f);
+        Invoke("set_to_idle", 0.7f);    
     }
 
     void move_toward_player(Vector3 direction){
         Rigidbody2D rigid_2D = GetComponent<Rigidbody2D>();
-
-        if (this_enemy == Enemy_state.Idle || this_enemy == Enemy_state.Moving){
-            this_enemy = Enemy_state.Moving;
-            rigid_2D.velocity = direction * 150 * Time.deltaTime;
-        }
-        
+        rigid_2D.velocity = direction * 150 * Time.deltaTime;        
     }
 
     // Start is called before the first frame update
@@ -71,21 +74,48 @@ public class sword_enemy_attack : MonoBehaviour
     {   
         //Enemy_state this_enemy;
         //this_enemy = Enemy_state.Idle;
-        player = GameObject.FindGameObjectsWithTag("Player")[0];
+        anim = GetComponent<Animator>();
+
+        if (player == null && GameObject.FindGameObjectsWithTag("Player").Length != 0){
+            player = GameObject.FindGameObjectsWithTag("Player")[0];
+        }
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
+    void Update(){
+        if (player == null && GameObject.FindGameObjectsWithTag("Player").Length != 0){
+            player = GameObject.FindGameObjectsWithTag("Player")[0];
+        }
+
+        cooldown -= Time.deltaTime;
+        if (cooldown < 0){
+            this_enemy = Enemy_state.Active;
+        }
+
+        if (enemy_health <= 0) {
+            death_audio.Play();
+            Destroy(gameObject);
+        }
     }
 
     void FixedUpdate() {
-        Vector3 distance_vector = player.transform.position - transform.position;
-        Vector3 direction = distance_vector.normalized;
-        float distance = distance_vector.magnitude;
+        if (player != null){
+            Vector3 distance_vector = player.transform.position - transform.position;
+            Vector3 direction = distance_vector.normalized;
+            float distance = distance_vector.magnitude;
+
+            if (this_enemy == Enemy_state.Active){
+                if (5.5 < distance) { set_to_idle(); }
+                if (distance <= 5.5) { move_toward_player(direction); }
+                if (distance < 2) { 
+                    full_attack();
+                    cooldown = 2.0f; 
+                    this_enemy = Enemy_state.Passive;
+                } 
+            }
+        }
+
         
-        if (2.5 <= distance && distance < 6) { move_toward_player(direction); }
-        if (distance < 2.5) { full_attack(); }
+        
     }
 }

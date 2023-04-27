@@ -5,15 +5,24 @@ using UnityEngine;
 
 public class player_attack : MonoBehaviour
 {
-
+    [SerializeField] int player_health = 3;
     [SerializeField] GameObject sword;
     [SerializeField] Animator animator;
     [SerializeField] float weapon_lifetime = 0.18f;
     [SerializeField] float weapon_speed = 15f;
     [SerializeField] AudioSource sword_attack_audio;
+    [SerializeField] AudioSource hit_audio;
 
     bool weapon_ready = true;
     float weapon_busy = 0.6f; //this is the weapon cooldown time
+
+
+    private void OnCollisionEnter2D(Collision2D col) {
+        if (col.gameObject.tag == "Projectile"){
+            hit_audio.Play();
+            player_health--;
+        }
+    }
 
 
     void set_weapon_ready(){

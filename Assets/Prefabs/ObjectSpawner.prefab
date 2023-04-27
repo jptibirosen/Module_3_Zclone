@@ -45,5 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player_prefab: {fileID: 4991880065592786969, guid: 04dc1cd100015ed4584b3ee6dac76e1b, type: 3}
-  enemy_swordsman_prefab: {fileID: 5713362284355338293, guid: 9b3398e849617294a83c8c3d2ed75f70, type: 3}
+  enemy_swordsman_prefab: {fileID: 6964388642721600744, guid: dc5d81ea25ad9d04d93e0baba378f011, type: 3}
   enemy_archer_prefab: {fileID: 8691916044059110862, guid: da5fff58121c83348b1cd18c7ef5de75, type: 3}

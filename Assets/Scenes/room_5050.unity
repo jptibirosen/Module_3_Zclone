@@ -207,7 +207,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &944377482
+--- !u!1 &948246232
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -215,8 +215,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 944377484}
-  - component: {fileID: 944377485}
+  - component: {fileID: 948246234}
+  - component: {fileID: 948246233}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -224,28 +224,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &944377484
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 944377482}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.02, y: 3.71, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &944377485
+--- !u!114 &948246233
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 944377482}
+  m_GameObject: {fileID: 948246232}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 46faf0beca5aa5d4fb504c21ccaa48fb, type: 3}
@@ -253,7 +238,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player_prefab: {fileID: 4991880065592786969, guid: 04dc1cd100015ed4584b3ee6dac76e1b, type: 3}
   player_x: 0
-  player_y: 0
+  player_y: -6
+  has_purple_key: 0
+  has_green_key: 0
+  has_gold_key: 0
+  opened_purple_door: 0
+  opened_green_door: 0
+  opened_gold_door: 0
+  has_acorns: 0
+  knows_the_secret: 0
+--- !u!4 &948246234
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 948246232}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.2334092, y: -1.2921877, z: 0.050700277}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1270238783
 GameObject:
   m_ObjectHideFlags: 0
@@ -3716,7 +3724,7 @@ Transform:
   - {fileID: 1736393775}
   - {fileID: 1270238784}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1686844940
 GameObject:
@@ -4777,7 +4785,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1771949608
 GameObject:
@@ -4809,7 +4817,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player_prefab: {fileID: 4991880065592786969, guid: 04dc1cd100015ed4584b3ee6dac76e1b, type: 3}
-  enemy_swordsman_prefab: {fileID: 5713362284355338293, guid: 9b3398e849617294a83c8c3d2ed75f70, type: 3}
+  enemy_swordsman_prefab: {fileID: 6964388642721600744, guid: dc5d81ea25ad9d04d93e0baba378f011, type: 3}
   enemy_archer_prefab: {fileID: 8691916044059110862, guid: da5fff58121c83348b1cd18c7ef5de75, type: 3}
 --- !u!4 &1771949610
 Transform:
@@ -4824,5 +4832,5 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
