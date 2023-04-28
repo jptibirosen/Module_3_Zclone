@@ -11,6 +11,8 @@ TagManager:
   - Green_door
   - Purple_door
   - Gold_door
+  - Heart
+  - Boss_heart
   layers:
   - Default
   - TransparentFX

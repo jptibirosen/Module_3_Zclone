@@ -10,8 +10,9 @@ public class green_chest_script : MonoBehaviour
 
     private void open_chest(){
         open_audio.Play();
-        Debug.Log("got green key");
+        //Debug.Log("got green key");
         GameManager.Instance.has_green_key = true;
+        GameManager.Instance.secret_audio.Play();
         Instantiate<GameObject>(open_chest_object, transform.position, transform.rotation);
         Destroy(gameObject);
     }

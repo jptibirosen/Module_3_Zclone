@@ -38,13 +38,12 @@ public class player_movement : MonoBehaviour
         }
 
 
-        if (
-            !(Input.GetKey(KeyCode.RightArrow)
+        if (!(Input.GetKey(KeyCode.RightArrow)
             || Input.GetKey(KeyCode.LeftArrow)
             || Input.GetKey(KeyCode.UpArrow)
-            || Input.GetKey(KeyCode.DownArrow))){
+            || Input.GetKey(KeyCode.DownArrow)))
+            {
                 rigid_2D.velocity = new Vector3(0f, 0f, 0f);
-
             }
 
     }

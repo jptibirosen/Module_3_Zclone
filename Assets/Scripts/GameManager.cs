@@ -16,12 +16,15 @@ public class GameManager : MonoBehaviour
     - a more elegant way of doing this would be to use a 2D array of scenes and manipulate the indices to select 
         a scene to load
     */
-    int room_x = 50;
-    int room_y = 50;
+    private int room_x = 50;
+    private int room_y = 50;
+
+    private int player_hp = 3;
+    private int boss_hp = 3;
 
     //the player's current coordinates
-    [SerializeField] float player_x = 0f;
-    [SerializeField] float player_y = -6f;
+    [SerializeField] public float player_x = 0f;
+    [SerializeField] public float player_y = -6f;
 
     [SerializeField] public bool has_purple_key = false;
     [SerializeField] public bool has_green_key = false;
@@ -35,7 +38,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject green_key_message;
     [SerializeField] GameObject gold_key_message;
     [SerializeField] GameObject acorns_message;
+    [SerializeField] GameObject heart;
+    [SerializeField] GameObject boss_heart;
     [SerializeField] public AudioSource secret_audio;
+
+    bool defeated = false;
 
 
     /*this dictionary tracks the state of the rooms. this makes sure enemies and powerups are only spawned the first time 
@@ -73,6 +80,16 @@ public class GameManager : MonoBehaviour
 
     }
     
+
+    public void destroy_all(string tag){
+        //destroys all game objects with a given tag
+
+        GameObject[] array_of_objects = GameObject.FindGameObjectsWithTag(tag);
+        for (int i = array_of_objects.Length - 1; i >= 0; i--){
+            Destroy(array_of_objects[i]);
+        }
+    }
+
     GameObject get_player(){
         GameObject[] array_of_players = GameObject.FindGameObjectsWithTag("Player");
         if (array_of_players.Length == 0){
@@ -100,11 +117,7 @@ public class GameManager : MonoBehaviour
         }
 
         if(Input.GetKeyDown(KeyCode.D)){
-            GameObject[] array_of_enemies = GameObject.FindGameObjectsWithTag("Enemy");
-            for (int i = array_of_enemies.Length - 1; i >= 0; i--)
-            {
-                Destroy(array_of_enemies[i]);
-            }
+            destroy_all("Enemy");
         }
     }
 
@@ -137,6 +150,10 @@ public class GameManager : MonoBehaviour
 
         GameObject aco_message = GameObject.Find("acorn_message(Clone)");
         if(has_acorns && aco_message == null){Instantiate<GameObject>(acorns_message);;}
+
+        if (GameObject.FindGameObjectsWithTag("Heart").Length == 0){
+            set_player_hp(0);   //used to draw hearts on the screen again
+        }
     }
 
     void check_for_exit(){
@@ -183,17 +200,54 @@ public class GameManager : MonoBehaviour
         
         //Debug.Log($"open_door(\"{color}\") was called");
         string door_tag = $"{color}_door";
-        GameObject[] array_of_doors = GameObject.FindGameObjectsWithTag(door_tag);
-        List<GameObject> list_of_doors = new List<GameObject>();
-        list_of_doors.AddRange(array_of_doors);
+        destroy_all(door_tag);
+    }
 
-        for (int i = list_of_doors.Count -1 ; i >= 0 ; i--)
-        {
-            Destroy(list_of_doors[i]);
+    public int get_player_hp(){
+        return player_hp;
+    }
+
+    public void set_player_hp(int difference){
+        //update the player hp
+        player_hp = Mathf.Clamp(player_hp + difference, 0, 3);
+
+        //draw the hearts on the display
+        destroy_all("Heart");
+        for (int i = 0; i < player_hp; i++){
+            Instantiate(heart, new Vector3(-11f + i, 4f, 0f), transform.rotation);
         }
 
-
+        //end game if player is dead
+        if (player_hp == 0 && !defeated){
+            defeated = true;    //without this it would continue loading the scene
+            SceneManager.LoadScene("room_lose");
+        }
     }
+
+
+    public int get_boss_hp(){
+        return boss_hp;
+    }
+
+    public void set_boss_hp(int difference){
+        //update the boss hp
+        boss_hp = Mathf.Clamp(boss_hp + difference, 0, 5);
+
+        //draw the hearts on the display
+        if (SceneManager.GetActiveScene().name == "room_5057"){
+            destroy_all("Boss_heart");
+            for (int i = 0; i < boss_hp; i++){
+                Instantiate(boss_heart, new Vector3(-11.5f, -2.5f + i, 0f), transform.rotation);
+            }
+        }
+    }
+
+
+    public void load_scene(string name){
+        SceneManager.LoadScene(name);
+    }
+
+
 
 
     void Awake(){
@@ -209,7 +263,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        set_player_hp(3);
     }
 
 

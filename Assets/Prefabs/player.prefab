@@ -80,7 +80,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: -761595023, guid: 9881d3dbdeab2b64b8f84ee7cc0f8cd9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -165,7 +165,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 661e6c9f07a68054286a071e05b1dd67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player_health: 3
   sword: {fileID: 9110300456368780760, guid: 796d76e7c9bea4141bdc1e8fb5187989, type: 3}
   animator: {fileID: 4991880065592786975}
   weapon_lifetime: 0.18
@@ -185,6 +184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player_health: 0
+  shield: {fileID: 863848174062380810, guid: 219d13a559611604f8048bb3a4996e12, type: 3}
 --- !u!95 &4991880065592786975
 Animator:
   serializedVersion: 5
